@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laser Technologies</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.3/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .custom-card {
+            background-color: #000;
+            color: #fff;
+            border-radius: 25px 5px 25px 5px;
+            padding: 20px;
+            height: fit-content;
+            position: relative;
+            z-index: 1;
+        }
+        .custom-input {
+            background-color: #f3f3f3;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 5px;
+            width: 100%;
+        }
+        .custom-button {
+            background-color: #000;
+            color: #fff;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+        }
+        .custom-button:hover {
+            background-color: #333;
+        }
+        .map-card {
+            position: relative;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            border-radius: 25px 5px 25px 5px;
+            padding: 20px;
+            max-width: 400px;
+            margin: 20px;
+            z-index: 100px;
+        }
+        .map-details {
+            position: relative;
+            z-index: 1;
+        }
+        .map-image {
+            width: calc(100% + 20px); /* Extend image to cover the right side */
+            margin-left: -20px; /* Adjust for extending beyond the container */
+            border-radius: 15px 0 0 15px; /* Rounded left corners */
+        }
+        
+        .location-card {
+            position: relative;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+        }
+        .background-letter {
+            position: absolute;
+            font-size: 10rem;
+            font-weight: bold;
+            color: rgba(0, 0, 0, 0.05);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+        }
+        .help-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .help-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+        .help-card p {
+            margin-bottom: 0;
+        }
+        .help-card a {
+            color: red;
+            text-decoration: none;
+        }
+        .help-card a:hover {
+            text-decoration: underline;
+        }
+        .newsletter {
+            background-color: #d32f2f;
+            border-radius: 25px;
+            padding: 20px;
+            text-align: center;
+            margin-top: 50px;
+            color: white;
+        }
+        .newsletter input {
+            border-radius: 25px 0 0 25px;
+            padding: 10px 20px;
+            border: none;
+            outline: none;
+        }
+        .newsletter button {
+            border-radius: 0 25px 25px 0;
+            padding: 10px 20px;
+            border: none;
+            background-color: black;
+            color: white;
+            cursor: pointer;
+        }
+        .newsletter button:hover {
+            background-color: #333;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <div class="container mx-auto p-10">
+        <div class="flex justify-between items-center mb-10">
+            <img src="logo.jpg" alt="Laser Technologies" class="h-24"> <!-- Increased logo size -->
+            <nav>
+                <a href="#" class="text-gray-600">Home</a> / <a href="#" class="text-gray-600">Contact</a>
+            </nav>
+        </div>
+
+        <div class="flex space-x-10 mb-20">
+            <div class="flex-1 flex items-center justify-center"> <!-- Centered the card vertically -->
+                <div class="custom-card">
+                    <h2 class="text-3xl font-bold mb-2">Get in touch</h2>
+                    <p>Need our expertise for choosing your next laser machine?</p>
+                </div>
+            </div>
+
+            <div class="flex-1">
+                <h2 class="text-xl mb-4">Fill out the form to get a free consultation.</h2>
+                <form>
+                    <input type="text" placeholder="Your Name" class="custom-input mb-4">
+                    <input type="text" placeholder="Organization Name" class="custom-input mb-4">
+                    <input type="text" placeholder="Contact Number" class="custom-input mb-4">
+                    <input type="email" placeholder="Email ID" class="custom-input mb-4">
+                    <textarea placeholder="Remark" class="custom-input mb-4" rows="4"></textarea>
+                    <div class="mb-4">
+                        <input type="checkbox" id="not-robot">
+                        <label for="not-robot" class="text-gray-600">I'm not a robot</label>
+                    </div>
+                    <button id="contact-form" type="submit" class="custom-button">Submit</button>
+                </form>
+            </div>
+        </div>
+
+
+       <div class="relative w-full h-auto">
+    <img src="map.JPG" alt="Map" class="w-full h-auto">
+    <div class="absolute inset-0 flex items-center justify-center mb-20">
+        <div class="bg-black p-6 shadow-lg rounded-md max-w-md">
+            <h3 class="text-xl font-bold mb-2 text-white">Headquarters office</h3>
+            <p class="mb-2 text-whit">Laser Technologies Pvt Ltd</p>
+            <p class="mb-2 text-whit">PAP/R/406 Rable MIDC Near Dol Electric Company Rable MIDC, Navi Mumbai - 400701.</p>
+            <p class="mb-2 text-whit">Landline - 022 4131 0099</p>
+            <p class="mb-2 flex items-center">
+                <svg class="h-5 w-5 mr-2 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <a href="https://maps.app.goo.gl/MoMa5NiVhbEiWJxN6" target="_blank" class="text-yellow-400 underline">Google Map Link</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+        
+        </div>
+        <!-- Map Section -->
+        
+    </div>
+
+        <!-- Office Locations Section -->
+        <div class="container mx-auto p-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <div class="location-card">
+                    <div class="background-letter">M</div>
+                    <h2 class="text-xl font-bold">Mumbai</h2>
+                    <p>PAP/R/406 Rabale MIDC<br>Near Dol Electric Company<br>Rabale MIDC, Navi Mumbai - 400701</p>
+                </div>
+                <div class="location-card">
+                    <div class="background-letter">P</div>
+                    <h2 class="text-xl font-bold">Pune</h2>
+                    <p>"S" Block, Plot No.186, MIDC, Bhosari.<br>Pune - 411026</p>
+                </div>
+                <div class="location-card">
+                    <div class="background-letter">G</div>
+                    <h2 class="text-xl font-bold">GUJRAT</h2>
+                    <p>A-5, GF, Barcelona Multiple Business Campus,<br>Odhav Ring Road Circle, Ahmedabad,<br>Gujarat - 382430</p>
+                </div>
+                <div class="location-card">
+                    <div class="background-letter">D</div>
+                    <h2 class="text-xl font-bold">DELHI</h2>
+                    <p>S-98 Second Floor, Phase-2,<br>Okhla Industrial Area, New Delhi - 110020</p>
+                </div>
+                <div class="location-card">
+                    <div class="background-letter">K</div>
+                    <h2 class="text-xl font-bold">KARNATAKA</h2>
+                    <p>77/78/B, Janapriya Commercial Complex,<br>Magadi Main Rd, Sunkadakatte,<br>Bengaluru, Karnataka - 560091</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Help Section -->
+        <div class="container mx-auto p-10">
+            <h2 class="text-2xl font-bold text-center mb-8">How can we help?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+                <div class="help-card">
+                    <img src="demo.JPG" alt="Schedule a Demo" class="w-12 h-12 mx-auto mb-4">
+                    <p class="font-bold">Schedule a <a href="#">Demo</a></p>
+                </div>
+                <div class="help-card">
+                    <img src="sample.JPG" alt="Request a Quote" class="w-12 h-12 mx-auto mb-4">
+                    <p class="font-bold">Request a <a href="#">Quote</a></p>
+                </div>
+                <div class="help-card">
+                    <img src="query.jpg" alt="Send us a Sample" class="w-12 h-12 mx-auto mb-4">
+                    <p class="font-bold">Send us a <a href="#">Sample</a></p>
+                </div>
+                <div class="help-card">
+                    <img src="buy.JPG" alt="Raise your Query" class="w-12 h-12 mx-auto mb-4">
+                    <p class="font-bold">Raise your <a href="#">Query</a></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Newsletter Section -->
+        <div class="container mx-auto p-10">
+            <div class="newsletter">
+                <h2 class="text-2xl font-bold mb-4">Subscribe To Our Newsletter & Stay Updated</h2>
+                <div class="flex justify-center items-center">
+                    <input type="email" placeholder="Your Email" class="p-2 w-1/3">
+                    <button class="p-2">SUBSCRIBE</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+<script src="./script.js"></script>
+</body>
+</html>
