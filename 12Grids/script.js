@@ -1,6 +1,6 @@
 document.getElementById("contact-form")
   .addEventListener("click", function (event) {
-    alert("form has been submitted");
+    alert("Form Submitted Successfully");
     event.preventDefault();
 
     // Clear previous error messages
