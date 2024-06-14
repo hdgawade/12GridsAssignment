@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Laser Technologies</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.3/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      .custom-input {
+        background-color: #f3f3f3;
+        border: 1px solid #ddd;
+        padding: 15px;
+        border-radius: 5px;
+        width: 100%;
+      }
+      .custom-button {
+        background-color: #000;
+        color: #fff;
+        padding: 15px 30px;
+        border: none;
+        border-radius: 5px;
+      }
+      .custom-button:hover {
+        background-color: #333;
+      }
+      .map-card {
+        position: relative;
+        background-color: rgba(0, 0, 0, 0.8);
+        color: #fff;
+        border-radius: 25px 5px 25px 5px;
+        padding: 20px;
+        max-width: 400px;
+        margin: 20px;
+        z-index: 100px;
+      }
+      .map-details {
+        position: relative;
+        z-index: 1;
+      }
+      .map-image {
+        width: calc(100% + 20px); /* Extend image to cover the right side */
+        margin-left: -20px; /* Adjust for extending beyond the container */
+        border-radius: 15px 0 0 15px; /* Rounded left corners */
+      }
+
+      .background-letter {
+        position: absolute;
+        font-size: 10rem;
+        font-weight: bold;
+        color: rgba(0, 0, 0, 0.05);
+        top: 40%;
+        left: -10%;
+        transform: translate(-50%, -50%);
+      }
+      .help-card {
+        background-color: white;
+        border-radius: 10px;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .help-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+      }
+      .help-card p {
+        margin-bottom: 0;
+      }
+      .help-card a {
+        color: red;
+        text-decoration: none;
+      }
+      .help-card a:hover {
+        text-decoration: underline;
+      }
+      .newsletter {
+        background-color: #d32f2f;
+        padding: 32px;
+        text-align: center;
+        color: white;
+        transform: translateY(150%);
+      }
+      .newsletter input {
+        border-radius: 25px 0 0 25px;
+        padding: 10px 20px;
+        border: none;
+        outline: none;
+      }
+      .newsletter button {
+        border-radius: 0 25px 25px 0;
+        padding: 10px 20px;
+        border: none;
+        background-color: black;
+        color: white;
+        cursor: pointer;
+      }
+      .newsletter button:hover {
+        background-color: #333;
+      }
+    </style>
+  </head>
+  <body class="bg-white">
+    <img src="logo.png" alt="Laser Technologies" class="h-24 w-full" />
+    <div class="container max-w-full">
+      <div class="flex justify-end p-4">
+        <nav class="text-xs">
+          <a href="#" class="text-gray-600 text-xs">Home</a> /
+          <a href="#contact" class="text-gray-600 text-xs">Contact</a>
+        </nav>
+      </div>
+
+      <div class="flex space-x-10 m-20">
+        <div class="mt-14">
+          <!-- Centered the card vertically -->
+          <div
+            class="bg-black w-3/4 text-white rounded-tl-3xl rounded-tr-md rounded-br-3xl rounded-bl-md p-10 h-fit relative"
+          >
+            <h2 class="text-4xl mb-2 font-semibold">Get in touch</h2>
+            <p class="text-sm">
+              Need our expertise for choosing your next laser machine?
+            </p>
+          </div>
+        </div>
+
+        <div class="flex-1">
+          <h2 class="text-xl text-gray-400 mb-4">
+            Fill out the form to get a free consultation.
+          </h2>
+          <form>
+            <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+              <input
+                id="name"
+                type="text"
+                placeholder="Your Name"
+                class="custom-input mb-4"
+                required
+              />
+              <input
+                id="organization"
+                type="text"
+                placeholder="Organization Name"
+                class="custom-input mb-4"
+                required
+              />
+              <input
+                id="contact"
+                type="text"
+                placeholder="Contact Number"
+                class="custom-input mb-4"
+                pattern="[0-9]{10}"
+                title="Please enter exactly 10 digits"
+                required
+              />
+              <input
+                id="email"
+                type="email"
+                placeholder="Email ID"
+                class="custom-input mb-4"
+                required
+              />
+              <textarea
+                id="remark"
+                placeholder="Remark"
+                class="custom-input mb-4 md:row-span-3"
+                rows="4"
+                required
+              ></textarea>
+              <div class="mb-4">
+                <input type="checkbox" id="not-robot" />
+                <label for="not-robot" class="text-gray-600"
+                  >I'm not a robot</label
+                >
+              </div>
+              <button id="contact-form" type="submit" class="custom-button">
+                Submit
+              </button>
+            </div>
+          </form>
+          <div id="success-message" class="text-green-500 mb-4"></div>
+          <div id="name-error" class="error-message"></div>
+          <div id="organization-error" class="error-message"></div>
+          <div id="contact-error" class="error-message"></div>
+          <div id="email-error" class="error-message"></div>
+          <div id="remark-error" class="error-message"></div>
+          <div id="robot-error" class="error-message"></div>
+        </div>
+      </div>
+      <div class="relative w-full h-auto">
+        <img src="map.JPG" alt="Map" class="w-full h-auto" />
+        <div class="absolute inset-0 flex items-center justify-left m-20">
+          <div
+            class="bg-black p-10 opacity-75 shadow-lg rounded-tl-3xl rounded-tr-md rounded-br-3xl rounded-bl-md max-w-sm"
+          >
+            <h3 class="text-3xl font-bold mb-2 text-white underline">
+              Headquarters office
+            </h3>
+            <p class="mb-2 font-semibold text-white text-2xl">
+              Laser Technologies Pvt Ltd
+            </p>
+            <p class="mb-2 text-white">
+              PAP/R/406 Rable MIDC Near Dol Electric Company Rable MIDC, Navi
+              Mumbai - 400701.
+            </p>
+            <p class="mb-2 text-white">Landline - 022 4131 0099</p>
+            <p class="mb-2 flex items-center">
+              <img
+                src="https://lh3.googleusercontent.com/V0Lu6YzAVaCVcjSJ_4Qb0mR_idw-GApETGbkodvDKTH-rpDvHuD6J84jshR_FvXdl5mJxqbIHVdebYCCbQMJNxIxRaIHYFSq6z7laA"
+                alt="Map"
+                class="w-6 h-6 mr-2 p-1 bg-white rounded-lg"
+              />
+              <a
+                href="https://maps.app.goo.gl/MoMa5NiVhbEiWJxN6"
+                target="_blank"
+                class="text-yellow-400 underline"
+                >Google Map Link</a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Office Locations Section -->
+    <div
+      class="container mx-auto p-10 flex flex-col justify-center items-center"
+    >
+      <div class="flex justify-center items-center ml-20">
+        <div class="relative p-5 bg-white rounded-lg m-5">
+          <div class="background-letter">M</div>
+          <h2 class="text-xl font-bold">Mumbai</h2>
+          <p>
+            PAP/R/406 Rabale MIDC<br />Near Dol Electric Company<br />Rabale
+            MIDC, Navi Mumbai - 400701
+          </p>
+        </div>
+        <div class="relative p-5 bg-white rounded-lg m-5">
+          <div class="background-letter">P</div>
+          <h2 class="text-xl font-bold">Pune</h2>
+          <p>"S" Block, Plot No.186, MIDC, Bhosari.<br />Pune - 411026</p>
+        </div>
+        <div class="relative p-5 bg-white rounded-lg m-5">
+          <div class="background-letter">G</div>
+          <h2 class="text-xl font-bold">GUJRAT</h2>
+          <p>
+            A-5, GF, Barcelona Multiple Business Campus,<br />Odhav Ring Road
+            Circle, Ahmedabad,<br />Gujarat - 382430
+          </p>
+        </div>
+      </div>
+      <div class="flex justify-center items-center">
+        <div class="relative p-5 bg-white rounded-lg m-5 mx-12">
+          <div class="background-letter">D</div>
+          <h2 class="text-xl font-bold">DELHI</h2>
+          <p>
+            S-98 Second Floor, Phase-2,<br />Okhla Industrial Area,<br />
+            New Delhi - 110020
+          </p>
+        </div>
+        <div class="relative p-5 bg-white rounded-lg m-5">
+          <div class="background-letter">K</div>
+          <h2 class="text-xl font-bold">KARNATAKA</h2>
+          <p>
+            77/78/B, Janapriya Commercial Complex,<br />Magadi Main Rd,
+            Sunkadakatte,<br />Bengaluru, Karnataka - 560091
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Help Section -->
+    <div class="container mx-auto px-32">
+      <h2 class="text-2xl font-bold text-center mb-8">How can we help?</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+        <div class="help-card">
+          <div class="flex justify-center items-center p-4">
+            <svg
+              width="62"
+              height="68"
+              viewBox="0 0 62 68"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M48.7306 1H13.2102C11.7382 1 10.3265 1.60689 9.28566 2.68715C8.24482 3.76742 7.66008 5.23257 7.66008 6.7603V26.3453C7.66008 27.873 8.24482 29.3382 9.28566 30.4185C10.3265 31.4987 11.7382 32.1056 13.2102 32.1056H48.7306C50.2026 32.1056 51.6142 31.4987 52.6551 30.4185C53.6959 29.3382 54.2807 27.873 54.2807 26.3453V6.7603C54.2807 5.23257 53.6959 3.76742 52.6551 2.68715C51.6142 1.60689 50.2026 1 48.7306 1ZM16.5402 29.8015V26.3453C16.5402 25.4287 16.891 24.5496 17.5155 23.9014C18.14 23.2533 18.9871 22.8891 19.8702 22.8891H26.5303C27.4135 22.8891 28.2605 23.2533 28.885 23.9014C29.5095 24.5496 29.8604 25.4287 29.8604 26.3453V29.8015H16.5402ZM52.0606 26.3453C52.0606 27.262 51.7098 28.141 51.0853 28.7892C50.4608 29.4374 49.6138 29.8015 48.7306 29.8015H32.0804V26.3453C32.0804 24.8176 31.4956 23.3524 30.4548 22.2722C29.414 21.1919 28.0023 20.585 26.5303 20.585H19.8702C18.3983 20.585 16.9866 21.1919 15.9457 22.2722C14.9049 23.3524 14.3202 24.8176 14.3202 26.3453V29.8015H13.2102C12.327 29.8015 11.48 29.4374 10.8555 28.7892C10.231 28.141 9.88011 27.262 9.88011 26.3453V6.7603C9.88011 5.84366 10.231 4.96457 10.8555 4.31641C11.48 3.66825 12.327 3.30412 13.2102 3.30412H48.7306C49.6138 3.30412 50.4608 3.66825 51.0853 4.31641C51.7098 4.96457 52.0606 5.84366 52.0606 6.7603V26.3453ZM13.2102 53.9948H6.55007C5.0781 53.9948 3.66642 54.6016 2.62558 55.6819C1.58474 56.7622 1 58.2273 1 59.7551V66.6674C1 66.973 1.11695 67.266 1.32512 67.482C1.53328 67.6981 1.81562 67.8195 2.11001 67.8195H17.6502C17.9446 67.8195 18.2269 67.6981 18.4351 67.482C18.6433 67.266 18.7602 66.973 18.7602 66.6674V59.7551C18.7602 58.2273 18.1755 56.7622 17.1346 55.6819C16.0938 54.6016 14.6821 53.9948 13.2102 53.9948ZM16.5402 65.5154H3.22003V59.7551C3.22003 58.8384 3.57087 57.9593 4.19537 57.3112C4.81988 56.663 5.66689 56.2989 6.55007 56.2989H13.2102C14.0933 56.2989 14.9403 56.663 15.5648 57.3112C16.1894 57.9593 16.5402 58.8384 16.5402 59.7551V65.5154ZM4.33004 45.9303C4.33004 47.0696 4.65555 48.1833 5.2654 49.1306C5.87525 50.0779 6.74205 50.8162 7.75619 51.2522C8.77033 51.6881 9.88627 51.8022 10.9629 51.58C12.0395 51.3577 13.0284 50.8091 13.8046 50.0035C14.5808 49.1979 15.1094 48.1715 15.3235 47.0541C15.5377 45.9367 15.4278 44.7785 15.0077 43.726C14.5876 42.6734 13.8763 41.7738 12.9636 41.1408C12.0509 40.5079 10.9778 40.17 9.88011 40.17C8.40814 40.17 6.99646 40.7769 5.95562 41.8572C4.91478 42.9375 4.33004 44.4026 4.33004 45.9303ZM9.88011 42.4742C10.5387 42.4742 11.1826 42.6769 11.7302 43.0566C12.2778 43.4364 12.7046 43.9762 12.9567 44.6077C13.2087 45.2393 13.2747 45.9342 13.1462 46.6046C13.0177 47.275 12.7005 47.8909 12.2348 48.3742C11.7691 48.8576 11.1757 49.1867 10.5298 49.3201C9.8838 49.4535 9.21424 49.385 8.60576 49.1234C7.99727 48.8618 7.47719 48.4189 7.11128 47.8505C6.74537 47.2821 6.55007 46.6139 6.55007 45.9303C6.55007 45.0137 6.90091 44.1346 7.52541 43.4865C8.14992 42.8383 8.99693 42.4742 9.88011 42.4742ZM55.3907 53.9948H48.7306C47.2586 53.9948 45.8469 54.6016 44.8061 55.6819C43.7653 56.7622 43.1805 58.2273 43.1805 59.7551V66.6674C43.1805 66.973 43.2975 67.266 43.5056 67.482C43.7138 67.6981 43.9961 67.8195 44.2905 67.8195H59.8307C60.1251 67.8195 60.4075 67.6981 60.6156 67.482C60.8238 67.266 60.9407 66.973 60.9407 66.6674V59.7551C60.9407 58.2273 60.356 56.7622 59.3152 55.6819C58.2743 54.6016 56.8626 53.9948 55.3907 53.9948ZM58.7207 65.5154H45.4006V59.7551C45.4006 58.8384 45.7514 57.9593 46.3759 57.3112C47.0004 56.663 47.8474 56.2989 48.7306 56.2989H55.3907C56.2739 56.2989 57.1209 56.663 57.7454 57.3112C58.3699 57.9593 58.7207 58.8384 58.7207 59.7551V65.5154ZM46.5106 45.9303C46.5106 47.0696 46.8361 48.1833 47.4459 49.1306C48.0558 50.0779 48.9226 50.8162 49.9367 51.2522C50.9509 51.6881 52.0668 51.8022 53.1434 51.58C54.22 51.3577 55.2089 50.8091 55.9851 50.0035C56.7613 49.1979 57.2899 48.1715 57.5041 47.0541C57.7182 45.9367 57.6083 44.7785 57.1882 43.726C56.7682 42.6734 56.0568 41.7738 55.1441 41.1408C54.2314 40.5079 53.1583 40.17 52.0606 40.17C50.5887 40.17 49.177 40.7769 48.1361 41.8572C47.0953 42.9375 46.5106 44.4026 46.5106 45.9303ZM55.3907 45.9303C55.3907 46.6139 55.1954 47.2821 54.8295 47.8505C54.4635 48.4189 53.9435 48.8618 53.335 49.1234C52.7265 49.385 52.0569 49.4535 51.411 49.3201C50.765 49.1867 50.1717 48.8576 49.7059 48.3742C49.2402 47.8909 48.9231 47.275 48.7946 46.6046C48.6661 45.9342 48.732 45.2393 48.9841 44.6077C49.2361 43.9762 49.6629 43.4364 50.2106 43.0566C50.7582 42.6769 51.402 42.4742 52.0606 42.4742C52.9438 42.4742 53.7908 42.8383 54.4153 43.4865C55.0398 44.1346 55.3907 45.0137 55.3907 45.9303ZM34.3004 53.9948H27.6403C26.1684 53.9948 24.7567 54.6016 23.7158 55.6819C22.675 56.7622 22.0903 58.2273 22.0903 59.7551V66.6674C22.0903 66.973 22.2072 67.266 22.4154 67.482C22.6235 67.6981 22.9059 67.8195 23.2003 67.8195H38.7405C39.0349 67.8195 39.3172 67.6981 39.5254 67.482C39.7335 67.266 39.8505 66.973 39.8505 66.6674V59.7551C39.8505 58.2273 39.2657 56.7622 38.2249 55.6819C37.1841 54.6016 35.7724 53.9948 34.3004 53.9948ZM37.6305 65.5154H24.3103V59.7551C24.3103 58.8384 24.6611 57.9593 25.2856 57.3112C25.9101 56.663 26.7571 56.2989 27.6403 56.2989H34.3004C35.1836 56.2989 36.0306 56.663 36.6551 57.3112C37.2796 57.9593 37.6305 58.8384 37.6305 59.7551V65.5154ZM25.4203 45.9303C25.4203 47.0696 25.7458 48.1833 26.3557 49.1306C26.9655 50.0779 27.8323 50.8162 28.8465 51.2522C29.8606 51.6881 30.9765 51.8022 32.0531 51.58C33.1297 51.3577 34.1187 50.8091 34.8949 50.0035C35.6711 49.1979 36.1996 48.1715 36.4138 47.0541C36.6279 45.9367 36.518 44.7785 36.098 43.726C35.6779 42.6734 34.9665 41.7738 34.0538 41.1408C33.1411 40.5079 32.0681 40.17 30.9704 40.17C29.4984 40.17 28.0867 40.7769 27.0459 41.8572C26.005 42.9375 25.4203 44.4026 25.4203 45.9303ZM34.3004 45.9303C34.3004 46.6139 34.1051 47.2821 33.7392 47.8505C33.3733 48.4189 32.8532 48.8618 32.2447 49.1234C31.6362 49.385 30.9667 49.4535 30.3207 49.3201C29.6747 49.1867 29.0814 48.8576 28.6157 48.3742C28.15 47.8909 27.8328 47.275 27.7043 46.6046C27.5758 45.9342 27.6418 45.2393 27.8938 44.6077C28.1459 43.9762 28.5727 43.4364 29.1203 43.0566C29.6679 42.6769 30.3118 42.4742 30.9704 42.4742C31.8536 42.4742 32.7006 42.8383 33.3251 43.4865C33.9496 44.1346 34.3004 45.0137 34.3004 45.9303Z"
+                fill="#4A4A4A"
+                stroke="#4A4A4A"
+                stroke-width="0.3"
+              />
+              <path
+                d="M23.2024 6.7605C22.1047 6.7605 21.0317 7.09833 20.119 7.73128C19.2063 8.36423 18.4949 9.26387 18.0748 10.3164C17.6547 11.369 17.5448 12.5272 17.759 13.6446C17.9731 14.762 18.5017 15.7884 19.2779 16.5939C20.0541 17.3995 21.043 17.9482 22.1196 18.1704C23.1963 18.3927 24.3122 18.2786 25.3263 17.8426C26.3405 17.4066 27.2073 16.6683 27.8171 15.721C28.427 14.7738 28.7525 13.6601 28.7525 12.5208C28.7525 10.9931 28.1677 9.52792 27.1269 8.44765C26.0861 7.36738 24.6744 6.7605 23.2024 6.7605ZM23.2024 15.977C22.5438 15.977 21.9 15.7743 21.3523 15.3945C20.8047 15.0147 20.3779 14.475 20.1259 13.8434C19.8738 13.2119 19.8079 12.517 19.9364 11.8465C20.0649 11.1761 20.382 10.5603 20.8477 10.0769C21.3134 9.59355 21.9068 9.26438 22.5528 9.13103C23.1987 8.99767 23.8683 9.06611 24.4768 9.3277C25.0853 9.58929 25.6053 10.0323 25.9712 10.6006C26.3372 11.169 26.5325 11.8372 26.5325 12.5208C26.5325 13.4374 26.1816 14.3165 25.5571 14.9647C24.9326 15.6128 24.0856 15.977 23.2024 15.977Z"
+                fill="#4A4A4A"
+              />
+              <path
+                d="M47.6209 10.2163H34.3008V12.5204H47.6209V10.2163Z"
+                fill="#4A4A4A"
+              />
+              <path
+                d="M47.6209 19.4331H34.3008V21.7372H47.6209V19.4331Z"
+                fill="#4A4A4A"
+              />
+              <path
+                d="M43.1809 14.8247H34.3008V17.1288H43.1809V14.8247Z"
+                fill="#4A4A4A"
+              />
+            </svg>
+          </div>
+          <p>Schedule a</p>
+          <a href="#demo" class="font-bold">Demo</a>
+        </div>
+        <div class="help-card">
+          <div class="flex justify-center items-center p-4">
+            <img src="quote.png" alt="Map" class="w-10 h-auto" />
+          </div>
+          <p>Request a</p>
+          <a href="#quote" class="font-bold">Quote</a>
+        </div>
+        <div class="help-card">
+          <div class="flex justify-center items-center p-4">
+            <svg
+              width="66"
+              height="69"
+              viewBox="0 0 66 69"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M63.1317 21.0243L45.835 3.07385L24.7345 24.9735V0.836914H0.273438V68.5374H65.5031V43.1497H41.8138L63.1317 21.0243ZM45.835 7.06254L59.2872 21.0243L37.9707 43.1497H11.0649L24.7345 28.9622L45.835 7.06254ZM2.99134 3.65777H22.0166V27.7944L7.22175 43.1497H2.99134V3.65777ZM62.7852 45.9706V65.7165H2.99134V45.9706H62.7852Z"
+                fill="#4A4A4A"
+              />
+              <path
+                d="M28.8096 48.7915H17.938V62.8958H28.8096V48.7915ZM26.0917 60.0749H20.6559V51.6124H26.0917V60.0749ZM43.7581 48.7915H32.8865V62.8958H43.7581V48.7915ZM41.0402 60.0749H35.6044V51.6124H41.0402V60.0749ZM58.7065 48.7915H47.8349V62.8958H58.7065V48.7915ZM55.9886 60.0749H50.5528V51.6124H55.9886V60.0749ZM7.06641 54.4332H9.78431V57.2541H7.06641V54.4332Z"
+                fill="#4A4A4A"
+              />
+            </svg>
+          </div>
+          <p>Send us a</p>
+          <a href="#sample" class="font-bold">Sample</a>
+        </div>
+        <div class="help-card">
+          <div class="flex justify-center items-center p-4">
+            <svg
+              width="65"
+              height="67"
+              viewBox="0 0 65 67"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M55.2543 31.7052C54.1965 31.7052 53.4913 30.9733 53.4913 29.8755V26.216C53.4913 20.3608 51.3758 14.8716 47.321 10.6632C43.2662 6.45478 37.9773 4.25909 32.3358 4.25909C20.7002 4.25909 11.1802 14.1397 11.1802 26.216V29.8755C11.1802 30.9733 10.475 31.7052 9.41726 31.7052C8.35948 31.7052 7.6543 30.9733 7.6543 29.8755V26.216C7.6543 12.127 18.761 0.599609 32.3358 0.599609C38.8587 0.599609 45.2054 3.34422 49.7891 8.10155C54.3728 12.8589 57.0173 19.446 57.0173 26.216V29.8755C57.0173 30.9733 56.3121 31.7052 55.2543 31.7052ZM34.9802 57.3216H29.6913C27.2232 57.3216 25.2839 59.3343 25.2839 61.896C25.2839 64.4576 27.2232 66.4703 29.6913 66.4703H34.9802C37.4484 66.4703 39.3876 64.4576 39.3876 61.896C39.3876 59.3343 37.4484 57.3216 34.9802 57.3216ZM34.9802 62.8108H29.6913C29.1624 62.8108 28.8099 62.4449 28.8099 61.896C28.8099 61.347 29.1624 60.9811 29.6913 60.9811H34.9802C35.5091 60.9811 35.8617 61.347 35.8617 61.896C35.8617 62.4449 35.5091 62.8108 34.9802 62.8108Z"
+                fill="#4A4A4A"
+              />
+              <path
+                d="M42.912 64.6403H37.6231C36.5653 64.6403 35.8601 63.9084 35.8601 62.8105C35.8601 61.7127 36.5653 60.9808 37.6231 60.9808H42.912C48.7298 60.9808 53.4898 56.0405 53.4898 50.0024C53.4898 48.9045 54.1949 48.1726 55.2527 48.1726C56.3105 48.1726 57.0157 48.9045 57.0157 50.0024C57.0157 58.0532 50.669 64.6403 42.912 64.6403ZM32.3342 53.6618C28.9846 53.6618 25.8112 52.0151 23.872 49.2705C23.3431 48.5386 23.5194 47.2577 24.2246 46.7088C24.9297 46.1599 26.1638 46.3429 26.6927 47.0748C27.9268 48.9045 30.0423 50.0024 32.3342 50.0024C34.626 50.0024 36.7416 48.9045 37.9757 47.0748C38.5046 46.3429 39.5623 46.1599 40.4438 46.7088C41.149 47.2577 41.3253 48.3556 40.7964 49.2705C38.8572 52.0151 35.6838 53.6618 32.3342 53.6618Z"
+                fill="#4A4A4A"
+              />
+              <path
+                d="M12.9423 28.0457H7.65341C3.7749 28.0457 0.601562 31.3392 0.601562 35.3646V44.5133C0.601562 48.5388 3.7749 51.8323 7.65341 51.8323H12.9423C13.8238 51.8323 14.7053 50.9174 14.7053 50.0026V29.8754C14.7053 28.9605 13.8238 28.0457 12.9423 28.0457ZM11.1793 48.1728H7.65341C5.71416 48.1728 4.12749 46.526 4.12749 44.5133V35.3646C4.12749 33.3519 5.71416 31.7051 7.65341 31.7051H11.1793V48.1728ZM57.0164 28.0457H51.7275C50.846 28.0457 49.9645 28.9605 49.9645 29.8754V50.0026C49.9645 50.9174 50.846 51.8323 51.7275 51.8323H57.0164C60.8949 51.8323 64.0682 48.5388 64.0682 44.5133V35.3646C64.0682 31.3392 60.8949 28.0457 57.0164 28.0457ZM60.5423 44.5133C60.5423 46.526 58.9556 48.1728 57.0164 48.1728H53.4905V31.7051H57.0164C58.9556 31.7051 60.5423 33.3519 60.5423 35.3646V44.5133Z"
+                fill="#4A4A4A"
+              />
+            </svg>
+          </div>
+          <p>Raise your</p>
+          <a href="#query" class="font-bold">Query</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="relative">
+      <!-- Newsletter Section -->
+      <div class="container mx-auto mb-24 z-50 relative px-14">
+        <div
+          class="newsletter rounded-tl-3xl rounded-tr-md rounded-br-3xl rounded-bl-md flex p-6 shadow-lg relative z-20"
+        >
+          <h2 class="text-xl font-semibold mb-4 mr-4">
+            Subscribe To Our Newsletter & Stay Updated
+          </h2>
+          <div class="flex items-center ml-auto">
+            <input
+              type="email"
+              id="useremail"
+              placeholder="Your Email"
+              class="p-2 text-black w-64"
+            />
+            <button
+              id="mail-subscribe"
+              class="bg-black text-white p-2 rounded-full"
+            >
+              SUBSCRIBE
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer Section -->
+      <div class="w-full bg-black px-32 py-24 relative z-10">
+        <img
+          src="darklogo.png"
+          alt="Laser Technologies"
+          class="absolute bottom-12 right-24 h-12 w-auto"
+        />
+      </div>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
